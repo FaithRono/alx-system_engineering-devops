@@ -1,2 +1,4 @@
 #!/bin/bash
-group
+groups=$(groups)
+echo "Groups for current user:"
+echo "$groups"
