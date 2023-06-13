@@ -3,4 +3,5 @@ Shell, init files, variables and expansions
 1.script that prints hello user is echo "hello $USER"
 2.script that prints the path is echo "hello $USER"
 
-4script that prints environment variables is printenv
+4.script that prints environment variables is printenv
+5.script that prints environment variables is set
