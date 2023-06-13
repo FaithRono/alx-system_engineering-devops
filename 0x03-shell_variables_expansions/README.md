@@ -7,3 +7,4 @@ Shell, init files, variables and expansions
 5.script that prints environment variables is set
 6.script that creates a new local variable is BEST="School"
 7.script that creates a new global variable is export BEST="School"
+8.script that prints the result of the addition of 128 with the value stored in the environment variable is echo $((128+TRUEKNOWLEDGE))
