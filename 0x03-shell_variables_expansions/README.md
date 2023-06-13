@@ -5,3 +5,4 @@ Shell, init files, variables and expansions
 
 4.script that prints environment variables is printenv
 5.script that prints environment variables is set
+6.script that creates a new local variable is BEST="School"
