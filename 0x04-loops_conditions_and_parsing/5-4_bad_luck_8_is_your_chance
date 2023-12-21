@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script displays different messages based on the loop iteration
+
+my_variable=1
+while [ $my_variable -le 10 ]
+do
+    if [ $my_variable -eq 4 ]; then
+        echo "bad luck"
+    elif [ $my_variable -eq 8 ]; then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    my_variable=$((my_variable + 1))
+done
