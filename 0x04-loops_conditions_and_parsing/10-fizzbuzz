@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script displays numbers from 1 to 100 with FizzBuzz conditions
+
+for range in {1..100}
+do
+    if ((range % 3 == 0)) && ((range % 5 == 0)); then
+        echo "FizzBuzz"
+    elif ((range % 3 == 0)); then
+        echo "Fizz"
+    elif ((range % 5 == 0)); then
+        echo "Buzz"
+    else
+        echo "$range"
+    fi
+done
