@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# This script displays different messages based on the loop iteration
+
+my_variable=1
+while [ $my_variable -le 20 ]
+do
+    case $my_variable in
+        4)
+            echo "$my_variable"
+            echo "bad luck from China"
+            ;;
+        9)
+            echo "$my_variable"
+            echo "bad luck from Japan"
+            ;;
+        17)
+            echo "$my_variable"
+            echo "bad luck from Italy"
+            ;;
+        *)
+            echo "$my_variable"
+            ;;
+    esac
+    my_variable=$((my_variable + 1))
+done
