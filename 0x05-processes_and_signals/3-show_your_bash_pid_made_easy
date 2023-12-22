@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Script to display the PID and process name of processes containing 'bash'
+
+# Get the PID of the script itself
+my_pid=$$
+
+# Use 'pgrep' command to find processes containing 'bash'
+pgrep -l bash | while read -r pid process_name; do
+    # Exclude the PID of the script itself
+    if [ "$pid" != "$my_pid" ]; then
+        echo "$pid $process_name"
+    fi
+done
+
