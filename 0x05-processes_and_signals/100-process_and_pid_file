@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Script to demonstrate handling of signals and creating PID file
+
+pid_file="/var/run/myscript.pid"
+
+trap 'echo "Y U no love me?!"' SIGINT
+trap 'echo "I hate the kill command"; rm -f "$pid_file"; exit 1' SIGQUIT SIGTERM
+
+if [ -f "$pid_file" ]; then
+    echo "PID file already exists: $(< "$pid_file")"
+    exit 1
+fi
+
+echo $$ > "$pid_file"
+
+trap 'rm -f "$pid_file"; exit' EXIT
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
