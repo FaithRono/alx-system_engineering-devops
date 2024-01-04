@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# 5-is_the_host_on_the_network.sh
+# Bash script to ping an IP address and check network connectivity.
+
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+    exit 1
+fi
+
+# Ping the specified IP address 5 times
+ping -c 5 "$1"
