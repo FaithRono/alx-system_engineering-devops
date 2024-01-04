@@ -1,15 +1,11 @@
 #!/usr/bin/env ruby
+input = ARGV[0]
+pattern = /\[from:(.*?)\] \[to:(.*?)\] \[flags:(.*?)\]/
 
-regex = /\[from:(?<sender>.*?)\].*?\[to:(?<receiver>.*?)\].*?\[flags:(?<flags>.*?)\]/
+matches = input.match(pattern)
 
-arg = ARGV[0]
+sender = matches[1]
+receiver = matches[2]
+flags = matches[3]
 
-if arg
-  match_data = arg.match(regex)
-  sender = match_data[:sender]
-  receiver = match_data[:receiver]
-  flags = match_data[:flags]
-  puts "#{sender},#{receiver},#{flags}"
-  puts "$"
-  puts "$"
-end
+puts"#{sender},#{receiver},#{flags}"
