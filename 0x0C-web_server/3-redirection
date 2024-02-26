@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# A Script that configures a new Ubuntu machine to Perform a 301-redirection
+
+# Update package list
+sudo apt-get update
+
+# Install nginx
+sudo apt-get install -y nginx
+
+# Start nginx service
+sudo systemctl start nginx
+
+# Create an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Use sed to add a 301 redirection
+if ! grep -q "location /redirect_me {" /etc/nginx/sites-enabled/default; then
+    sudo sed -i '/server_name _;/a \
+            location /redirect_me { \
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \
+            }' /etc/nginx/sites-enabled/default
+
+    # Check Nginx configuration
+    sudo nginx -t
+
+    # Reload Nginx service if configuration is valid
+    if [ $? -eq 0 ]; then
+        sudo systemctl reload nginx
+    else
+        echo "Nginx configuration is invalid. Please check and correct it."
+    fi
+fi

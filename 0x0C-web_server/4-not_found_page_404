@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#Managing nginx installation, redirection and 404 error
+
+# Update package information
+sudo apt-get -y update
+
+# Install Nginx
+sudo apt-get install -y nginx
+
+# Start Nginx service
+sudo systemctl start nginx
+
+# Creating an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+sudo systemctl reload nginx
+
+# Configuring 301 Redirection
+if ! grep -q "location /redirect_me {" /etc/nginx/sites-enabled/default; then
+sudo sed -i '/server_name _;/a\
+        location \/redirect_me {\
+            return 301 https:\/\/github.com\/Kakazablone;\
+        }' /etc/nginx/sites-enabled/default
+sudo systemctl reload nginx
+fi
+
+if ! grep -q "error_page 404 /404.html;" /etc/nginx/sites-enabled/default; then
+# Configuring Custom 404 page
+sudo sed -i '/server_name _;/a\
+        error_page 404 /404.html;' /etc/nginx/sites-enabled/default
+
+# Reloading Nginx service
+sudo systemctl reload nginx
+fi
