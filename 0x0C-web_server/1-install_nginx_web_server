@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Commands to install Nginx on Web-Sever-01
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+
+# Creating an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Checking configurations for Syntax errors
+sudo nginx -t
+
+# Restarting Nginx
+sudo service nginx restart
