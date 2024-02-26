@@ -1,33 +1,37 @@
 #!/usr/bin/env bash
-#Managing nginx installation, redirection and 404 error
+# Configures a Nginx server to afew more configs
 
-# Update package information
-sudo apt-get -y update
 
-# Install Nginx
-sudo apt-get install -y nginx
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+         sudo apt-get install nginx -y
 
-# Start Nginx service
-sudo systemctl start nginx
+echo -e "\nSetting up some minor stuff.\n"
 
-# Creating an index.html page
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
-sudo systemctl reload nginx
+# starting nginx service
+sudo service nginx start
 
-# Configuring 301 Redirection
-if ! grep -q "location /redirect_me {" /etc/nginx/sites-enabled/default; then
-sudo sed -i '/server_name _;/a\
-        location \/redirect_me {\
-            return 301 https:\/\/github.com\/Kakazablone;\
-        }' /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
-fi
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-if ! grep -q "error_page 404 /404.html;" /etc/nginx/sites-enabled/default; then
-# Configuring Custom 404 page
-sudo sed -i '/server_name _;/a\
-        error_page 404 /404.html;' /etc/nginx/sites-enabled/default
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-# Reloading Nginx service
-sudo systemctl reload nginx
-fi
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Setting up /redirect_me to a youtube video
+sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+# Set up a 404 page
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -i '25i\       error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nCompleted.\n"
