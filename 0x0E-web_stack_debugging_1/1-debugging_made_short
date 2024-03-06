@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-service nginx stop
-# Ensure nginx is started and listening on port 80
-sed -i 's/80 default_server;/80 default_server;\n    add_header X-Served-By $HOSTNAME;/g' /etc/nginx/sites-available/default
-service nginx start
+# configures a server to listening on port 80 of all servers active IPv4 IPs
+
+sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+echo "" | sudo dd status=none of=/run/nginx.pid
