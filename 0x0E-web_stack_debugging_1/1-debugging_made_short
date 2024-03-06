@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+service nginx stop
+# Ensure nginx is started and listening on port 80
+sed -i 's/80 default_server;/80 default_server;\n    add_header X-Served-By $HOSTNAME;/g' /etc/nginx/sites-available/default
+service nginx start
