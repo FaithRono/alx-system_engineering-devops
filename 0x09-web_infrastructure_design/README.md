@@ -9,8 +9,67 @@ This project focuses on understanding and designing different web infrastructure
 ## 👤 Team
 
 - Faith CHERONO
+---
+## 🔑 Key Concepts
+
+- **Web Servers**: Serve static files and forward dynamic content requests.
+- **Application Servers**: Handle logic and processing (Node.js, PHP, etc.).
+- **Databases**: Store application data (MySQL used).
+- **Load Balancers**: Distribute traffic for reliability and performance.
+- **Firewalls (ufw)**: Restrict traffic to essential services only.
+- **Monitoring Tools**: Track server health and uptime.
+- **SSL Encryption**: Ensures encrypted and secure communication over HTTPS.
 
 ---
+
+## ⚙️ Installation & Setup
+
+> Note: These steps assume you're using Ubuntu 20.04 servers.
+
+```bash
+# Install Nginx on web servers
+sudo apt update
+sudo apt install nginx
+
+# Install HAProxy on load balancer
+sudo apt install haproxy
+
+# Configure HAProxy (/etc/haproxy/haproxy.cfg)
+# Add backend web servers to HAProxy config
+
+# Install MySQL
+sudo apt install mysql-server
+
+# Secure MySQL
+sudo mysql_secure_installation
+
+# Install UFW and allow essential ports
+sudo ufw allow 'OpenSSH'
+sudo ufw allow 'Nginx Full'
+sudo ufw enable
+
+# Setup SSL using Let's Encrypt
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx
+
+# Install Monit for monitoring
+sudo apt install monit
+
+
+---
+
+🚀 How It Works
+User Request → Hits HAProxy load balancer
+
+HAProxy → Forwards request to one of the available web servers
+
+Web Server → Forwards to application logic (API, backend)
+
+App Server → Queries or updates the database
+
+Database → Sends result back to app → web → client
+
+
 
 ## 🧠 Learning Objectives
 
