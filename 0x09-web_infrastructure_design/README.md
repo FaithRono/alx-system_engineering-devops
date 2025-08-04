@@ -54,20 +54,21 @@ sudo certbot --nginx
 
 # Install Monit for monitoring
 sudo apt install monit
-
+```
 
 ---
+---
 
-🚀 How It Works
-User Request → Hits HAProxy load balancer
+## 🚀 How It Works
+- User Request → Hits HAProxy load balancer
 
-HAProxy → Forwards request to one of the available web servers
+- HAProxy → Forwards request to one of the available web servers
 
-Web Server → Forwards to application logic (API, backend)
+- Web Server → Forwards to application logic (API, backend)
 
-App Server → Queries or updates the database
+- App Server → Queries or updates the database
 
-Database → Sends result back to app → web → client
+- Database → Sends result back to app → web → client
 
 
 
